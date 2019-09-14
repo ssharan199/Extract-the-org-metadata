@@ -1,0 +1,21 @@
+<apex:page controller="ExportMetadataRadioVf"  sidebar="False" 
+           contentType="application/vnd.ms-excel#filename.xls"
+           language="en-US" cache="True">
+    <table border='1'>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+             
+        </tr>
+            <apex:repeat value="{!obj}" var="ob" id="theRepeat">       
+              <tr>  
+            <td><apex:outputText value="{!ob.id}" /></td>
+            <td><apex:outputText value="{!ob['Name']}" /></td>
+                </tr>
+            </apex:repeat>
+             
+            </table>
+       <script type='text/javascript'>
+        self.close();
+       </script>
+</apex:page>

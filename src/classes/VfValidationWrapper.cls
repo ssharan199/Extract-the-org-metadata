@@ -1,0 +1,144 @@
+public class VfValidationWrapper {
+
+	public class EntityDefinition {
+		public Attributes attributes {get;set;} 
+		public String DeveloperName {get;set;} 
+
+		public EntityDefinition(JSONParser parser) {
+			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+					String text = parser.getText();
+					if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+						if (text == 'attributes') {
+							attributes = new Attributes(parser);
+						} else if (text == 'DeveloperName') {
+							DeveloperName = parser.getText();
+						} else {
+							System.debug(LoggingLevel.WARN, 'EntityDefinition consuming unrecognized property: '+text);
+							consumeObject(parser);
+						}
+					}
+				}
+			}
+		}
+	}
+	public Integer size {get;set;}
+	public Integer totalSize {get;set;} 
+	public Boolean done {get;set;} 
+	public Object queryLocator {get;set;} 
+	public String entityTypeName {get;set;} 
+	public List<Records> records {get;set;} 
+
+	public VfValidationWrapper(JSONParser parser) {
+		while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+			if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+				String text = parser.getText();
+				if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+					if (text == 'size') {
+						size = parser.getIntegerValue();
+					} else if (text == 'totalSize') {
+						totalSize = parser.getIntegerValue();
+					} else if (text == 'done') {
+						done = parser.getBooleanValue();
+					} else if (text == 'queryLocator') {
+						queryLocator = parser.readValueAs(Object.class);
+					} else if (text == 'entityTypeName') {
+						entityTypeName = parser.getText();
+					} else if (text == 'records') {
+						records = arrayOfRecords(parser);
+					} else {
+						System.debug(LoggingLevel.WARN, 'JSON2Apex consuming unrecognized property: '+text);
+						consumeObject(parser);
+					}
+				}
+			}
+		}
+	}
+	
+	public class Attributes {
+		public String type_Z {get;set;} // in json: type
+		public String url {get;set;} 
+
+		public Attributes(JSONParser parser) {
+			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+					String text = parser.getText();
+					if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+						if (text == 'type') {
+							type_Z = parser.getText();
+						} else if (text == 'url') {
+							url = parser.getText();
+						} else {
+							System.debug(LoggingLevel.WARN, 'Attributes consuming unrecognized property: '+text);
+							consumeObject(parser);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public class Records {
+		public Attributes attributes {get;set;} 
+		public String Id {get;set;} 
+		public Boolean Active {get;set;} 
+		public String Description {get;set;} 
+		public EntityDefinition EntityDefinition {get;set;} 
+		public String ErrorDisplayField {get;set;} 
+		public String ErrorMessage {get;set;} 
+
+		public Records(JSONParser parser) {
+			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+					String text = parser.getText();
+					if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+						if (text == 'attributes') {
+							attributes = new Attributes(parser);
+						} else if (text == 'Id') {
+							Id = parser.getText();
+						} else if (text == 'Active') {
+							Active = parser.getBooleanValue();
+						} else if (text == 'Description') {
+							Description = parser.getText();
+						} else if (text == 'EntityDefinition') {
+							EntityDefinition = new EntityDefinition(parser);
+						} else if (text == 'ErrorDisplayField') {
+							ErrorDisplayField = parser.getText();
+						} else if (text == 'ErrorMessage') {
+							ErrorMessage = parser.getText();
+						} else {
+							System.debug(LoggingLevel.WARN, 'Records consuming unrecognized property: '+text);
+							consumeObject(parser);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public static VfValidationWrapper parse(String json) {
+		System.JSONParser parser = System.JSON.createParser(json);
+		return new VfValidationWrapper(parser);
+	}
+	public static void consumeObject(System.JSONParser parser) {
+		Integer depth = 0;
+		do {
+			System.JSONToken curr = parser.getCurrentToken();
+			if (curr == System.JSONToken.START_OBJECT || 
+				curr == System.JSONToken.START_ARRAY) {
+				depth++;
+			} else if (curr == System.JSONToken.END_OBJECT ||
+				curr == System.JSONToken.END_ARRAY) {
+				depth--;
+			}
+		} while (depth > 0 && parser.nextToken() != null);
+	}
+    private static List<Records> arrayOfRecords(System.JSONParser p) {
+        List<Records> res = new List<Records>();
+        if (p.getCurrentToken() == null) p.nextToken();
+        while (p.nextToken() != System.JSONToken.END_ARRAY) {
+            res.add(new Records(p));
+        }
+        return res;
+    }
+}

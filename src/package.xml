@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>exportmetadata</members>
+        <members>exportmetadataapp</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>myvf</members>
+        <members>VfExportMetadataRadio</members>
+        <members>exportmetadatainexcel</members>
+        <members>exportmetadatavfvalidation</members>
+        <members>exportmetdatavfprocess</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>ExportMetadata</members>
+        <members>exportMetadataforVf</members>
+        <members>ExportMetadataProcessWrapper</members>
+        <members>ExportMetadataRadioVf</members>
+        <members>exportmetadatawrapper</members>
+        <members>WorkflowWrapper</members>
+        <members>ValidationWrapper</members>
+        <members>ProcessFlowWrapper</members>
+        <members>VisualExcelmMetadataWrapper</members>
+        <members>ExportMetadataWorkflowWrapper</members>
+        <members>ExportMetadataValidationWrapper</members>
+        <members>VfWorkflowWrapper</members>
+        <members>VfValidationWrapper</members>
+        <members>VfProcessFlowWrapper</members>
+        <name>ApexClass</name>
+    </types>
+    <version>38.0</version>
+</Package>

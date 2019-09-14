@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>LinkedBusinessUnit__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Name corresponding to the the Display Name of the Business Unit that this Campaign is Linked to</description>
+        <externalId>false</externalId>
+        <formula>LinkedJourney__r.LinkedBusinessUnit__r.DisplayName__c</formula>
+        <label>Linked Business Unit</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LinkedJourney__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Linked Journey</label>
+        <referenceTo>MarketingCloudLinkedJourney__c</referenceTo>
+        <relationshipLabel>Campaigns</relationshipLabel>
+        <relationshipName>Campaigns</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+</CustomObject>

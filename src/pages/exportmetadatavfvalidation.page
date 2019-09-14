@@ -1,0 +1,41 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="ExportMetadataValidationWrapper"
+   cache="true" contentType="application/vnd.ms-excel#Program.xls"> <!--contentType="application/vnd.ms-excel#Program.xls" -->
+   
+    <head>
+</head>
+   <style>
+        body {
+        font-family: Arial Unicode MS;
+        font-size:9pt;
+        }
+        
+    </style>
+     <div style = "font-size:14px">
+        <apex:pageBlock title="Objects Metadat reports"/>
+    </div> 
+    <apex:pageBlock >
+        <table border='1'>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+            <apex:repeat value="{!vw.records}" var="val" id="theRepeat">     
+              <tr>  
+            <td><apex:outputText value="{!val.id}" /></td>
+            <td><apex:outputText value="{!val.description}" /></td>
+                </tr>
+            </apex:repeat>
+            </table>       
+        <br />
+        <br />
+        <apex:pageBlockSection >
+            <!--apex:outputLabel value="Created by: {!currentuser.Name}" /><br /-->
+            <apex:outputLabel value="Created on: {!TODAY()}" />
+        </apex:pageBlockSection>
+    <!--/apex:pageBlockTable-->
+
+</apex:pageBlock>
+    <!--script type='text/javascript'>
+     self.close();
+</script-->
+</apex:page>

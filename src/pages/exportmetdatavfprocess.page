@@ -1,0 +1,39 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" controller="ExportMetadataProcessWrapper"
+   cache="true" contentType="application/vnd.ms-excel#{!metadataName}.xls"> 
+   
+    <head>
+</head>
+   <style>
+        body {
+        font-family: Arial Unicode MS;
+        font-size:9pt;
+        }
+        
+    </style>
+     <div style = "font-size:14px">
+        <apex:pageBlock title="Objects Metadat reports"/>
+    </div> 
+    <apex:pageBlock >
+        <table border='1'>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+            <apex:repeat value="{!pf.records}" var="process" id="theRepeat">     
+              <tr>  
+            <td><apex:outputText value="{!process.id}" /></td>
+            <td><apex:outputText value="{!process.description}" /></td>
+                </tr>
+            </apex:repeat>
+            </table>       
+        <br />
+        <br />
+        <apex:pageBlockSection >
+            <apex:outputLabel value="Created on: {!TODAY()}" />
+        </apex:pageBlockSection>
+
+</apex:pageBlock>
+    <!--script type='text/javascript'>
+     self.close();
+</script-->
+</apex:page>

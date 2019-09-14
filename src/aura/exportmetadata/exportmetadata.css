@@ -1,0 +1,7 @@
+.THIS .customRadioCls .slds-form-element__control .slds-radio
+{
+    display : inline-block !important;
+}
+.THIS .slds-form-element__legend.slds-form-element__label{
+    font-size:20px;
+}

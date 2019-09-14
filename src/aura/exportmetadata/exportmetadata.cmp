@@ -1,0 +1,65 @@
+<aura:component controller="ExportMetadata" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="listOptions" type="List" default="[]"/>
+    <aura:attribute name="defaultOptions" type="List" default="[]"/>
+    <aura:attribute name="requiredOptions" type="List" default="[]"/>
+    <aura:handler name="init" value="{! this }" action="{! c.doInit }"/>
+    <aura:attribute name="wrapperList" type="exportmetadatawrapper[]"/>
+    <!-- for holding response data type --> 
+    <aura:attribute name="wrapperListvaildation" type="WorkflowWrapper"/>
+    <aura:attribute name="validationList" type="ValidationWrapper"/>
+    <aura:attribute name="processList" type="ProcessFlowWrapper"/>
+        <aura:attribute name="value" type="String"/>
+          <aura:attribute name="options" type="List" default="[
+    {'label': 'Workflow', 'value': 'Workflow'},
+    {'label': 'Validation Rule', 'value': 'ValidationRule'},
+    {'label': 'Process/Flow', 'value': 'ProcessFlow'},
+    {'label': 'Approval Process', 'value': 'ApprovalProcess'},
+    {'label': 'Apex Class', 'value': 'ApexClass'},
+    {'label': 'Apex Trigger', 'value': 'ApexTrigger'},
+    {'label': 'Email Templates', 'value': 'EmailTemplates'}
+    ]"/>
+
+    <div class="mainDiv" style="background:#fbfbd3">
+    
+    <div class="slds-align_absolute-center slds-grid" style= "height: 77px;">
+        <h1 style ="font-size:5em;"> <B>EXPORT METADATA</B></h1> </div>
+     <div class="slds-align_absolute-center">
+    
+    <lightning:button variant="brand" label="Download selected object as csv using Lightning" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsv }" />
+     
+  <lightning:button variant="brand" label="Download selected object as excel using vfPage" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsvinVfpage }" />
+    </div>
+    
+       <div style="margin-left: 28em;">
+    <lightning:dualListbox aura:id="selectOptions" name="Select Options"  label= "GET OBJECT'S METADATA"
+                           sourceLabel="Available Objects"
+                           selectedLabel="Selected Objects"
+                           options="{! v.listOptions }"
+                           value="{! v.defaultOptions }"
+                           requiredOptions="{! v.requiredOptions }"
+                           onchange="{! c.handleChange }"/>
+   </div>
+         <br/>
+<!-- radio buttons in horizontal view --> 
+           <div class="slds-grid slsd-col radioClass" style="margin-left: 25em;">
+
+
+    <lightning:radioGroup name="radioGroup"
+                          label="Get Component Metadata Details"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          type="radio"
+                          class="customRadioCls"
+                          onchange="{! c.selectRadio }"
+                          />
+    
+    </div>
+    <br/>
+               <br/>
+        <div class="slds-align_absolute-center">
+      <lightning:button variant="brand" label="Export Component Metadata Details in Lightning" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsvForRadioInLightning }" />
+
+      <lightning:button variant="brand" label="Export Component Metadata Details in Vf page" iconName="utility:download" iconPosition="left" onclick="{! c.downloadCsvinVfpageforRadio }" />
+    </div>
+    </div>
+    </aura:component>

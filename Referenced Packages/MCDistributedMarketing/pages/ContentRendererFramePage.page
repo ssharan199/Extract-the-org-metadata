@@ -1,0 +1,23 @@
+<apex:page showHeader="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <script>
+                // We set these labels here so we can access them in the content renderer JS for translations
+                var LABELS = {
+                    clickToEditLabel: '{!$Label.mcdm_15__editableCTA}',
+                    clickToResolveLabel: '{!$Label.mcdm_15__errorCTA}',
+                };
+            </script>
+            <apex:includeScript value="{!URLFOR($Resource.mcdm_15__StaticAssets, 'contentRenderer.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.mcdm_15__StaticAssets, 'content-renderer-attach-handler.js')}"/>
+        </head>
+        <body>
+            <iframe
+                id="iframe"
+                src="about:blank"
+                style="border: 0; width: 100%;">
+            </iframe>
+        </body>
+    </html>
+</apex:page>
